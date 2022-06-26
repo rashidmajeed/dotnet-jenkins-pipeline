@@ -21,12 +21,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'dotnet build "$WORKSPACE/src/web-api/web-api.csproj"'
+                sh 'dotnet build "$WORKSPACE/pipeline-Scenarios/src/web-api/web-api.csproj"'
             }
         }
         stage('API Unit Test') {
             steps {
-              dir("$WORKSPACE/src") {
+              dir("$WORKSPACE/pipeline-Scenarios/src") {
                 sh '''
                     dotnet test web-api-tests/web-api-tests.csproj
                 '''
