@@ -1,0 +1,39 @@
+pipeline {
+    agent {
+        dockerfile {
+            dir 'dotnet-jenkins-pipeline'
+            filename 'Dockerfile.sdk'
+        }
+    }
+    stages {
+        stage('Verify') {
+            steps {
+                sh '''
+                  dotnet --list-sdks
+                  dotnet --list-runtimes
+                '''
+                sh 'printenv'
+                sh 'ls -l "$WORKSPACE"'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'dotnet build "$WORKSPACE/src/web-api/web-api.csproj"'
+            }
+        }
+        stage('API Unit Test') {
+            steps {
+              dir("$WORKSPACE/src") {
+                sh '''
+                    dotnet test web-api-tests/web-api-tests.csproj
+                '''
+              }
+            }
+        }
+        stage('Smoke Test') {
+            steps {
+              sh 'dotnet "$WORKSPACE/src/web-api/bin/Debug/net6.0/web-api.dll"'
+            }
+        }
+    }
+}
