@@ -1,7 +1,7 @@
 pipeline {
     agent {
         dockerfile {
-            dir 'dotnet-jenkins-pipeline'
+            dir 'pipeline-Scenarios'
             filename 'Dockerfile.sdk'
         }
     }
