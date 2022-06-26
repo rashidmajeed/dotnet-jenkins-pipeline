@@ -35,7 +35,7 @@ pipeline {
         }
         stage('Smoke Test') {
             steps {
-              sh 'dotnet "$WORKSPACE/src/web-api/bin/Debug/net6.0/web-api.dll"'
+              sh 'dotnet "$WORKSPACE/pipeline-Scenarios/src/web-api/bin/Debug/net6.0/web-api.dll"'
             }
         }
     }
